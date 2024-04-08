@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.LiuyanMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Liuyan" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="biaoti" property="biaoti" jdbcType="VARCHAR" />
+<result column="neirong" property="neirong" jdbcType="VARCHAR" />
+<result column="liuyanshijian" property="liuyanshijian" jdbcType="VARCHAR" />
+<result column="usersid" property="usersid" jdbcType="INTEGER" />
+<result column="huifu" property="huifu" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id,  biaoti, neirong, liuyanshijian, usersid, huifu
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.LiuyanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from liuyan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from liuyan
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from liuyan
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.entity.LiuyanExample" >
+    delete from liuyan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.Liuyan" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into liuyan (biaoti,neirong,liuyanshijian,usersid,huifu)
+    values (#{biaoti,jdbcType=VARCHAR},#{neirong,jdbcType=VARCHAR},#{liuyanshijian,jdbcType=VARCHAR},#{usersid,jdbcType=INTEGER},#{huifu,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Liuyan" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into liuyan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="biaoti != null" >
+    biaoti,
+</if>
+<if test="neirong != null" >
+    neirong,
+</if>
+<if test="liuyanshijian != null" >
+    liuyanshijian,
+</if>
+<if test="usersid != null" >
+    usersid,
+</if>
+<if test="huifu != null" >
+    huifu,
+</if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="biaoti != null" >
+    #{biaoti,jdbcType=VARCHAR},
+</if>
+<if test="neirong != null" >
+    #{neirong,jdbcType=VARCHAR},
+</if>
+<if test="liuyanshijian != null" >
+    #{liuyanshijian,jdbcType=VARCHAR},
+</if>
+<if test="usersid != null" >
+    #{usersid,jdbcType=INTEGER},
+</if>
+<if test="huifu != null" >
+    #{huifu,jdbcType=VARCHAR},
+</if>
+
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.LiuyanExample" resultType="java.lang.Integer" >
+    select count(*) from liuyan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update liuyan
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.biaoti != null" >
+    biaoti = #{record.biaoti,jdbcType=VARCHAR},
+</if>
+<if test="record.neirong != null" >
+    neirong = #{record.neirong,jdbcType=VARCHAR},
+</if>
+<if test="record.liuyanshijian != null" >
+    liuyanshijian = #{record.liuyanshijian,jdbcType=VARCHAR},
+</if>
+<if test="record.usersid != null" >
+    usersid = #{record.usersid,jdbcType=INTEGER},
+</if>
+<if test="record.huifu != null" >
+    huifu = #{record.huifu,jdbcType=VARCHAR},
+</if>
+
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update liuyan
+    set id = #{record.id,jdbcType=INTEGER},
+      biaoti = #{record.biaoti,jdbcType=VARCHAR},neirong = #{record.neirong,jdbcType=VARCHAR},liuyanshijian = #{record.liuyanshijian,jdbcType=VARCHAR},usersid = #{record.usersid,jdbcType=INTEGER},huifu = #{record.huifu,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Liuyan" >
+    update liuyan
+    <set >
+      <if test="biaoti != null" >
+    biaoti = #{biaoti,jdbcType=VARCHAR},
+</if>
+<if test="neirong != null" >
+    neirong = #{neirong,jdbcType=VARCHAR},
+</if>
+<if test="liuyanshijian != null" >
+    liuyanshijian = #{liuyanshijian,jdbcType=VARCHAR},
+</if>
+<if test="usersid != null" >
+    usersid = #{usersid,jdbcType=INTEGER},
+</if>
+<if test="huifu != null" >
+    huifu = #{huifu,jdbcType=VARCHAR},
+</if>
+
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Liuyan" >
+    update liuyan
+    set biaoti = #{biaoti,jdbcType=VARCHAR},neirong = #{neirong,jdbcType=VARCHAR},liuyanshijian = #{liuyanshijian,jdbcType=VARCHAR},usersid = #{usersid,jdbcType=INTEGER},huifu = #{huifu,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

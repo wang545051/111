@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.ZuoweiMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Zuowei" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bianhao" property="bianhao" jdbcType="VARCHAR" />
+<result column="leibieid" property="leibieid" jdbcType="INTEGER" />
+<result column="loucengid" property="loucengid" jdbcType="INTEGER" />
+<result column="fangjianid" property="fangjianid" jdbcType="INTEGER" />
+<result column="neirong" property="neirong" jdbcType="VARCHAR" />
+<result column="shenhe" property="shenhe" jdbcType="VARCHAR" />
+<result column="image" property="image" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id,  bianhao, leibieid, loucengid, fangjianid, neirong, shenhe, image
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.ZuoweiExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from zuowei
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from zuowei
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from zuowei
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.entity.ZuoweiExample" >
+    delete from zuowei
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.Zuowei" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into zuowei (bianhao,leibieid,loucengid,fangjianid,neirong,shenhe,image)
+    values (#{bianhao,jdbcType=VARCHAR},#{leibieid,jdbcType=INTEGER},#{loucengid,jdbcType=INTEGER},#{fangjianid,jdbcType=INTEGER},#{neirong,jdbcType=VARCHAR},#{shenhe,jdbcType=VARCHAR},#{image,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Zuowei" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into zuowei
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bianhao != null" >
+    bianhao,
+</if>
+<if test="leibieid != null" >
+    leibieid,
+</if>
+<if test="loucengid != null" >
+    loucengid,
+</if>
+<if test="fangjianid != null" >
+    fangjianid,
+</if>
+<if test="neirong != null" >
+    neirong,
+</if>
+<if test="shenhe != null" >
+    shenhe,
+</if>
+<if test="image != null" >
+    image,
+</if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bianhao != null" >
+    #{bianhao,jdbcType=VARCHAR},
+</if>
+<if test="leibieid != null" >
+    #{leibieid,jdbcType=INTEGER},
+</if>
+<if test="loucengid != null" >
+    #{loucengid,jdbcType=INTEGER},
+</if>
+<if test="fangjianid != null" >
+    #{fangjianid,jdbcType=INTEGER},
+</if>
+<if test="neirong != null" >
+    #{neirong,jdbcType=VARCHAR},
+</if>
+<if test="shenhe != null" >
+    #{shenhe,jdbcType=VARCHAR},
+</if>
+<if test="image != null" >
+    #{image,jdbcType=VARCHAR},
+</if>
+
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.ZuoweiExample" resultType="java.lang.Integer" >
+    select count(*) from zuowei
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update zuowei
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bianhao != null" >
+    bianhao = #{record.bianhao,jdbcType=VARCHAR},
+</if>
+<if test="record.leibieid != null" >
+    leibieid = #{record.leibieid,jdbcType=INTEGER},
+</if>
+<if test="record.loucengid != null" >
+    loucengid = #{record.loucengid,jdbcType=INTEGER},
+</if>
+<if test="record.fangjianid != null" >
+    fangjianid = #{record.fangjianid,jdbcType=INTEGER},
+</if>
+<if test="record.neirong != null" >
+    neirong = #{record.neirong,jdbcType=VARCHAR},
+</if>
+<if test="record.shenhe != null" >
+    shenhe = #{record.shenhe,jdbcType=VARCHAR},
+</if>
+<if test="record.image != null" >
+    image = #{record.image,jdbcType=VARCHAR},
+</if>
+
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update zuowei
+    set id = #{record.id,jdbcType=INTEGER},
+      bianhao = #{record.bianhao,jdbcType=VARCHAR},leibieid = #{record.leibieid,jdbcType=INTEGER},loucengid = #{record.loucengid,jdbcType=INTEGER},fangjianid = #{record.fangjianid,jdbcType=INTEGER},neirong = #{record.neirong,jdbcType=VARCHAR},shenhe = #{record.shenhe,jdbcType=VARCHAR},image = #{record.image,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Zuowei" >
+    update zuowei
+    <set >
+      <if test="bianhao != null" >
+    bianhao = #{bianhao,jdbcType=VARCHAR},
+</if>
+<if test="leibieid != null" >
+    leibieid = #{leibieid,jdbcType=INTEGER},
+</if>
+<if test="loucengid != null" >
+    loucengid = #{loucengid,jdbcType=INTEGER},
+</if>
+<if test="fangjianid != null" >
+    fangjianid = #{fangjianid,jdbcType=INTEGER},
+</if>
+<if test="neirong != null" >
+    neirong = #{neirong,jdbcType=VARCHAR},
+</if>
+<if test="shenhe != null" >
+    shenhe = #{shenhe,jdbcType=VARCHAR},
+</if>
+<if test="image != null" >
+    image = #{image,jdbcType=VARCHAR},
+</if>
+
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Zuowei" >
+    update zuowei
+    set bianhao = #{bianhao,jdbcType=VARCHAR},leibieid = #{leibieid,jdbcType=INTEGER},loucengid = #{loucengid,jdbcType=INTEGER},fangjianid = #{fangjianid,jdbcType=INTEGER},neirong = #{neirong,jdbcType=VARCHAR},shenhe = #{shenhe,jdbcType=VARCHAR},image = #{image,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

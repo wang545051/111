@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd
+">
+  <!-- 使用注解方式注入对象 -->
+  <context:component-scan base-package="com" />
+
+  <mvc:annotation-driven>
+    <!-- 配置@ResponseBody返回JSON数据时的日期格式（默认返回时间戳） -->
+    <mvc:message-converters>
+      <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="objectMapper">
+          <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+            <property name="dateFormat">
+              <bean class="java.text.SimpleDateFormat">
+                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+              </bean>
+            </property>
+          </bean>
+        </property>
+      </bean>
+    </mvc:message-converters>
+  </mvc:annotation-driven>
+
+  <!-- 静态资源配置 -->
+  <mvc:resources mapping="/static/**" location="/static/"/>
+  <mvc:resources mapping="/upload/**" location="/upload/" />
+
+  <!-- 对模型视图名称的解析,即在模型视图名称添加前后缀 -->
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+<!--    <property name="prefix" value="/WEB-INF/pages/"/>-->
+    <property name="prefix" value="/"/>
+    <property name="suffix" value=".jsp"/>
+  </bean>
+
+  <!-- 引入mybatis配置 -->
+  <import resource="classpath:spring-mybatis.xml"/>
+  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="defaultEncoding" value="utf-8"></property>
+    <property name="maxUploadSize" value="5242440"></property>
+  </bean>
+</beans>

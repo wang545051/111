@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.LizuoMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Lizuo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="xingming" property="xingming" jdbcType="VARCHAR" />
+<result column="dianhua" property="dianhua" jdbcType="VARCHAR" />
+<result column="zuoweiid" property="zuoweiid" jdbcType="INTEGER" />
+<result column="shijian" property="shijian" jdbcType="VARCHAR" />
+<result column="beizhu" property="beizhu" jdbcType="VARCHAR" />
+<result column="usersslid" property="usersslid" jdbcType="INTEGER" />
+
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id,  xingming, dianhua, zuoweiid, shijian, beizhu, usersslid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.LizuoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lizuo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lizuo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lizuo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.entity.LizuoExample" >
+    delete from lizuo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.Lizuo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into lizuo (xingming,dianhua,zuoweiid,shijian,beizhu,usersslid)
+    values (#{xingming,jdbcType=VARCHAR},#{dianhua,jdbcType=VARCHAR},#{zuoweiid,jdbcType=INTEGER},#{shijian,jdbcType=VARCHAR},#{beizhu,jdbcType=VARCHAR},#{usersslid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Lizuo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into lizuo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="xingming != null" >
+    xingming,
+</if>
+<if test="dianhua != null" >
+    dianhua,
+</if>
+<if test="zuoweiid != null" >
+    zuoweiid,
+</if>
+<if test="shijian != null" >
+    shijian,
+</if>
+<if test="beizhu != null" >
+    beizhu,
+</if>
+<if test="usersslid != null" >
+    usersslid,
+</if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="xingming != null" >
+    #{xingming,jdbcType=VARCHAR},
+</if>
+<if test="dianhua != null" >
+    #{dianhua,jdbcType=VARCHAR},
+</if>
+<if test="zuoweiid != null" >
+    #{zuoweiid,jdbcType=INTEGER},
+</if>
+<if test="shijian != null" >
+    #{shijian,jdbcType=VARCHAR},
+</if>
+<if test="beizhu != null" >
+    #{beizhu,jdbcType=VARCHAR},
+</if>
+<if test="usersslid != null" >
+    #{usersslid,jdbcType=INTEGER},
+</if>
+
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.LizuoExample" resultType="java.lang.Integer" >
+    select count(*) from lizuo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lizuo
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.xingming != null" >
+    xingming = #{record.xingming,jdbcType=VARCHAR},
+</if>
+<if test="record.dianhua != null" >
+    dianhua = #{record.dianhua,jdbcType=VARCHAR},
+</if>
+<if test="record.zuoweiid != null" >
+    zuoweiid = #{record.zuoweiid,jdbcType=INTEGER},
+</if>
+<if test="record.shijian != null" >
+    shijian = #{record.shijian,jdbcType=VARCHAR},
+</if>
+<if test="record.beizhu != null" >
+    beizhu = #{record.beizhu,jdbcType=VARCHAR},
+</if>
+<if test="record.usersslid != null" >
+    usersslid = #{record.usersslid,jdbcType=INTEGER},
+</if>
+
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lizuo
+    set id = #{record.id,jdbcType=INTEGER},
+      xingming = #{record.xingming,jdbcType=VARCHAR},dianhua = #{record.dianhua,jdbcType=VARCHAR},zuoweiid = #{record.zuoweiid,jdbcType=INTEGER},shijian = #{record.shijian,jdbcType=VARCHAR},beizhu = #{record.beizhu,jdbcType=VARCHAR},usersslid = #{record.usersslid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Lizuo" >
+    update lizuo
+    <set >
+      <if test="xingming != null" >
+    xingming = #{xingming,jdbcType=VARCHAR},
+</if>
+<if test="dianhua != null" >
+    dianhua = #{dianhua,jdbcType=VARCHAR},
+</if>
+<if test="zuoweiid != null" >
+    zuoweiid = #{zuoweiid,jdbcType=INTEGER},
+</if>
+<if test="shijian != null" >
+    shijian = #{shijian,jdbcType=VARCHAR},
+</if>
+<if test="beizhu != null" >
+    beizhu = #{beizhu,jdbcType=VARCHAR},
+</if>
+<if test="usersslid != null" >
+    usersslid = #{usersslid,jdbcType=INTEGER},
+</if>
+
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Lizuo" >
+    update lizuo
+    set xingming = #{xingming,jdbcType=VARCHAR},dianhua = #{dianhua,jdbcType=VARCHAR},zuoweiid = #{zuoweiid,jdbcType=INTEGER},shijian = #{shijian,jdbcType=VARCHAR},beizhu = #{beizhu,jdbcType=VARCHAR},usersslid = #{usersslid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

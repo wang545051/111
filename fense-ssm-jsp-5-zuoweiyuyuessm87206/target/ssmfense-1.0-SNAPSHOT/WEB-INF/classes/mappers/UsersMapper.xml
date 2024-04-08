@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.UsersMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Users" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="loginname" property="loginname" jdbcType="VARCHAR" />
+<result column="loginpw" property="loginpw" jdbcType="VARCHAR" />
+<result column="type" property="type" jdbcType="VARCHAR" />
+<result column="typename" property="typename" jdbcType="VARCHAR" />
+<result column="xingming" property="xingming" jdbcType="VARCHAR" />
+<result column="xingbie" property="xingbie" jdbcType="VARCHAR" />
+<result column="nianling" property="nianling" jdbcType="VARCHAR" />
+<result column="address" property="address" jdbcType="VARCHAR" />
+<result column="dianhua" property="dianhua" jdbcType="VARCHAR" />
+<result column="shenhe" property="shenhe" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id,  loginname, loginpw, type, typename, xingming, xingbie, nianling, address, dianhua, shenhe
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.UsersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from users
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.entity.UsersExample" >
+    delete from users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.Users" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into users (loginname,loginpw,type,typename,xingming,xingbie,nianling,address,dianhua,shenhe)
+    values (#{loginname,jdbcType=VARCHAR},#{loginpw,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{typename,jdbcType=VARCHAR},#{xingming,jdbcType=VARCHAR},#{xingbie,jdbcType=VARCHAR},#{nianling,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{dianhua,jdbcType=VARCHAR},#{shenhe,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Users" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loginname != null" >
+    loginname,
+</if>
+<if test="loginpw != null" >
+    loginpw,
+</if>
+<if test="type != null" >
+    type,
+</if>
+<if test="typename != null" >
+    typename,
+</if>
+<if test="xingming != null" >
+    xingming,
+</if>
+<if test="xingbie != null" >
+    xingbie,
+</if>
+<if test="nianling != null" >
+    nianling,
+</if>
+<if test="address != null" >
+    address,
+</if>
+<if test="dianhua != null" >
+    dianhua,
+</if>
+<if test="shenhe != null" >
+    shenhe,
+</if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loginname != null" >
+    #{loginname,jdbcType=VARCHAR},
+</if>
+<if test="loginpw != null" >
+    #{loginpw,jdbcType=VARCHAR},
+</if>
+<if test="type != null" >
+    #{type,jdbcType=VARCHAR},
+</if>
+<if test="typename != null" >
+    #{typename,jdbcType=VARCHAR},
+</if>
+<if test="xingming != null" >
+    #{xingming,jdbcType=VARCHAR},
+</if>
+<if test="xingbie != null" >
+    #{xingbie,jdbcType=VARCHAR},
+</if>
+<if test="nianling != null" >
+    #{nianling,jdbcType=VARCHAR},
+</if>
+<if test="address != null" >
+    #{address,jdbcType=VARCHAR},
+</if>
+<if test="dianhua != null" >
+    #{dianhua,jdbcType=VARCHAR},
+</if>
+<if test="shenhe != null" >
+    #{shenhe,jdbcType=VARCHAR},
+</if>
+
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.UsersExample" resultType="java.lang.Integer" >
+    select count(*) from users
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update users
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.loginname != null" >
+    loginname = #{record.loginname,jdbcType=VARCHAR},
+</if>
+<if test="record.loginpw != null" >
+    loginpw = #{record.loginpw,jdbcType=VARCHAR},
+</if>
+<if test="record.type != null" >
+    type = #{record.type,jdbcType=VARCHAR},
+</if>
+<if test="record.typename != null" >
+    typename = #{record.typename,jdbcType=VARCHAR},
+</if>
+<if test="record.xingming != null" >
+    xingming = #{record.xingming,jdbcType=VARCHAR},
+</if>
+<if test="record.xingbie != null" >
+    xingbie = #{record.xingbie,jdbcType=VARCHAR},
+</if>
+<if test="record.nianling != null" >
+    nianling = #{record.nianling,jdbcType=VARCHAR},
+</if>
+<if test="record.address != null" >
+    address = #{record.address,jdbcType=VARCHAR},
+</if>
+<if test="record.dianhua != null" >
+    dianhua = #{record.dianhua,jdbcType=VARCHAR},
+</if>
+<if test="record.shenhe != null" >
+    shenhe = #{record.shenhe,jdbcType=VARCHAR},
+</if>
+
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update users
+    set id = #{record.id,jdbcType=INTEGER},
+      loginname = #{record.loginname,jdbcType=VARCHAR},loginpw = #{record.loginpw,jdbcType=VARCHAR},type = #{record.type,jdbcType=VARCHAR},typename = #{record.typename,jdbcType=VARCHAR},xingming = #{record.xingming,jdbcType=VARCHAR},xingbie = #{record.xingbie,jdbcType=VARCHAR},nianling = #{record.nianling,jdbcType=VARCHAR},address = #{record.address,jdbcType=VARCHAR},dianhua = #{record.dianhua,jdbcType=VARCHAR},shenhe = #{record.shenhe,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Users" >
+    update users
+    <set >
+      <if test="loginname != null" >
+    loginname = #{loginname,jdbcType=VARCHAR},
+</if>
+<if test="loginpw != null" >
+    loginpw = #{loginpw,jdbcType=VARCHAR},
+</if>
+<if test="type != null" >
+    type = #{type,jdbcType=VARCHAR},
+</if>
+<if test="typename != null" >
+    typename = #{typename,jdbcType=VARCHAR},
+</if>
+<if test="xingming != null" >
+    xingming = #{xingming,jdbcType=VARCHAR},
+</if>
+<if test="xingbie != null" >
+    xingbie = #{xingbie,jdbcType=VARCHAR},
+</if>
+<if test="nianling != null" >
+    nianling = #{nianling,jdbcType=VARCHAR},
+</if>
+<if test="address != null" >
+    address = #{address,jdbcType=VARCHAR},
+</if>
+<if test="dianhua != null" >
+    dianhua = #{dianhua,jdbcType=VARCHAR},
+</if>
+<if test="shenhe != null" >
+    shenhe = #{shenhe,jdbcType=VARCHAR},
+</if>
+
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Users" >
+    update users
+    set loginname = #{loginname,jdbcType=VARCHAR},loginpw = #{loginpw,jdbcType=VARCHAR},type = #{type,jdbcType=VARCHAR},typename = #{typename,jdbcType=VARCHAR},xingming = #{xingming,jdbcType=VARCHAR},xingbie = #{xingbie,jdbcType=VARCHAR},nianling = #{nianling,jdbcType=VARCHAR},address = #{address,jdbcType=VARCHAR},dianhua = #{dianhua,jdbcType=VARCHAR},shenhe = #{shenhe,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
